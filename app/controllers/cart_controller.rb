@@ -24,9 +24,9 @@ class CartController < ApplicationController
       if order_line
         product = order_line.product
         product.quantity = product.quantity + order_line.quantity
-        product.save
         order.amount = order.amount - order_line.quantity * product.price
         if order_line.destroy
+          product.save
           order.save
           flash[:notice] = "Product removed from the cart successfully"
         else
