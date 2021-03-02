@@ -1,0 +1,47 @@
+<div class = "container">  
+  
+  <div class="d-flex align-items-center">
+    <h4 style="color:#ef4867;">Product Details</h4>            
+  </div>
+
+  <div class="row align-items-center" style="padding-top:3%">
+    <%= form_with url: product_path(@product), method: :patch, local: true, class: "col-6" do |form| %>
+      <div class="form-group">
+        <%= label :post, :title, 'Title' %>
+        <%= text_field_tag 'product[title]', @product.title, class: "form-control", :required => true %>
+      </div>
+
+      <div class="form-group">
+        <%= label :post, :code, 'Product Code' %>
+        <%= text_field_tag 'product[code]', @product.code, class: "form-control", :required => true %>
+      </div>
+
+      <div class="form-group">
+        <%= label :post, :quantity, 'Available Quantity' %> 
+        <%= text_field_tag 'product[quantity]', @product.quantity, class: "form-control", :required => true %>
+      </div>
+
+      <div class="form-group">
+        <%= label :post, :price, 'Price' %> 
+        <%= text_field_tag 'product[price]', @product.price, class: "form-control", :required => true %>
+      </div>
+
+      <div class="form-group">
+        <%= label :post, :description1, 'Description1' %>
+        <%= text_field_tag 'product[description1]', @product.description1, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= label :post, :description2, 'Description2' %>
+        <%= text_field_tag 'product[description2]', @product.description2, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary float-right">Update Product</button>
+        <a class="btn btn-primary" href = <%= products_path %>> Back </a>
+      </div>
+      
+    <% end %>
+  </div>
+
+</div>

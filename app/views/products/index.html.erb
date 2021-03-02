@@ -1,0 +1,40 @@
+<div class="container" >
+  <div class= "float-right p-4">
+    <a class="btn btn-success" href = <%= new_product_path %>> Add Product</a>
+    <a class="btn btn-danger" data-confirm="Are you sure?" data-method="delete" href = <%= product_delete_all_path %>> Delete All Products</a>
+  </div>
+
+  <div class="table-responsive" style="width:100%">
+    <table class="table">
+      <thead >
+        <tr>
+          <th scope="col">S.no</th>
+          <th scope="col">Title</th>
+          <th scope="col">Product code</th>
+          <th scope="col">Available Quantity</th>      
+          <th scope="col">Price</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products.each_with_index do |product, index|%>
+          <tr>
+            <td> <%= index + 1 %> </td>
+            <td> <%= product.title %> </td>
+            <td> <%= product.code %> </td>         
+            <td> <%= product.quantity %> </td>
+            <td> <%= product.price %> </td>
+            <td> <%= product.description1 %> </td>
+            <td>
+              <a class="btn btn-primary" href = <%= product_path(product) %>> Edit </a>
+              <a class="btn btn-danger" data-confirm="Are you sure?" data-method="delete" href = <%= product_path(product) %>> Delete</a>
+            <td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% content_for :styles do %>
+  .a { color: #002bff}
+<% end %>

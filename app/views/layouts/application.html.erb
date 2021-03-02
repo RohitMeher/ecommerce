@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ecommerce</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto ">
+          <% if session[:user_id] %>
+            <li class="nav-item"><%= link_to 'Products', user_products_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to 'Cart', cart_index_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to 'Logout', user_logout_path, class: "nav-link" %></li>
+          <% else %>
+            <li class="nav-item"><%= link_to 'Sign Up', user_signup_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to 'Login', user_login_path, class: "nav-link" %></li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+    <% flash.each do |name, msg| %>
+      <% if name == "notice" %>
+        <%= content_tag :div, msg, class: "alert alert-info" %>
+      <% elsif name == "error" %>
+        <%= content_tag :div, msg, class: "alert alert-danger" %>
+      <% end %>
+    <% end %>
+  
+    <%= yield %>
+  </body>
+</html>

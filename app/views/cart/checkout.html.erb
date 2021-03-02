@@ -1,0 +1,82 @@
+<div class = "container">
+  <div class ="row border">
+    <% @order.order_lines.each do |line|%>      
+      <div class="col-md-6">
+        <div class="card card-body h-100 justify-content-center border-0">
+          <h5 class="card-text">Product Title: <%= line.product.title %></h5>
+          <p class="card-text"><b>Price:</b> ₹<%= line.product.price %></p>
+          <p class="card-text"><b>Description:</b> <%= line.product.description1 %></p>
+          <p class="card-text"><b>Quantity:</b> <%= line.quantity %></p>
+          <p class="card-text"><b>Sub total:</b> <%= line.price %></p>
+        </div>
+      </div>      
+    <% end %>
+    <div class="card float-right border-0">
+      <div class="card-body">
+        <p class="card-text"><b>Total</b> ₹<%= @order.amount %></p>
+        <p class="card-text"><b>No of Products:</b> <%= @order.order_lines.count %></p>
+        <a href=<%= user_products_path %> class="btn btn-primary card-link">Continue Shopping</a>
+      </div>
+		</div>
+  </div>
+      
+
+	<%= form_with url: cart_finalise_path, method: :post, local: true do |form| %>
+		<div class = "container p-5">
+			<div class="d-flex align-items-left">
+				<h2 style="color:#ef4867;">Delivery Address</h4>            
+			</div>
+			<div class ="row">
+				<div class="col-sm-8 p-3">   
+					<div class="card">
+						<div class="card-body">
+							<input type="radio" class="form-check-input" id="cod_payment_option" name="cart[address_id]" value= "<%= @address.id %>" checked = "true"> 
+							<h5 class="card-title"><%= @address.address1 %></h5>
+							<p class="card-text"><%= @address.address2 + '' + @address.address3 %></p>
+							<p class="card-text"><%= @address.post_code %></p>
+							<p class="card-text"><%= @user.phone %></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class = "container p-5">
+			<div class="d-flex align-items-left">
+				<h2 style="color:#ef4867;">Shipping</h4>            
+			</div>
+			<div class ="row">
+				<div class="col-sm-8 p-3">   
+					<div class="card-header">
+						<h5> Free shipping </h3>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class = "container p-5">
+			<div class="d-flex align-items-left">
+				<h2 style="color:#ef4867;">Payment Options</h4>            
+			</div>
+			<div class ="row">
+				<div class="col-sm-8 p-3">   
+					<div class="card-body">
+						<label class="form-check-label" for="radio1">
+							<input type="radio" class="form-check-input" id="cod_payment_option" name="cart[payment_option]" value="cod" checked = "true"> Cash On Delivery
+						</label>
+					</div>
+				</div>
+				<div class="col-sm-8 p-3">   
+					<div class="card-body">
+						<label class="form-check-label" for="radio1">
+							<input type="radio" class="form-check-input" id="credit_payment_option" name="cart[payment_option]" value="credit_card" disabled>Credit card Payment
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>    
+		<div class="row">
+			<%= form.submit 'Place Order', class: "btn btn-primary"%>
+		</div>		
+  <% end %>
+</div>

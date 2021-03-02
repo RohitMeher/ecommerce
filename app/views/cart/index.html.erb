@@ -1,0 +1,42 @@
+<% if @order && @order.order_lines.count > 0%>
+  <div class = "container">
+    <div class ="row border">
+      <% @order.order_lines.each do |line|%>
+        <div class="col-md-3">
+            <div class="card card-body h-100 justify-content-center border-0">
+                <%= image_tag('product_logo.png', class: "card-img-top", alt: "Product images", size: "168x90") %>
+            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-body h-100 justify-content-center border-0">
+            <h5 class="card-text">Name: <%= line.product.title %></h5>
+            <p class="card-text"><b>Price:</b> ₹<%= line.product.price %></p>
+            <p class="card-text"><b>Description:</b> <%= line.product.description1 %></p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card card-body h-100 justify-content-center border-0">
+              <p class="card-text"><b>Quantity:</b> <%= line.quantity %></p>
+              <%= form_with url: cart_update_path, method: :patch, local: true do |form| %>
+                <%= hidden_field(:update_cart, 'delete[order_id]', value: @order.id)%>
+                <%= hidden_field(:update_cart, 'delete[order_line_id]', value: line.id) %>
+                <%= form.submit 'Delete', class: "btn btn-danger"%>
+              <% end %>
+          </div>
+        </div>      
+      <% end %>
+    </div>
+  <div class="card-footer float-right">
+    <p class="card-text"><b>Total</b> ₹<%= @order.amount %></p>
+    <p class="card-text"><b>No of Products:</b> <%= @order.order_lines.count %></p>
+    <a href=<%= user_products_path %> class="btn btn-primary card-link">Continue Shopping</a>
+    <a href=<%= cart_checkout_path %> class="btn btn-info card-link">Checkout</a>
+  </div>
+
+  </div>
+<%else%>
+  <div>
+    <h3>You don't have any items in the cart</h3>
+    <a href=<%= user_products_path %> class="btn btn-primary float-right">Continue Shopping</a>
+  <div>
+<% end %>
