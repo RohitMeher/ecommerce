@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     post '/finalise',      to: 'cart#finalise',           as: 'cart_finalise'
     get '/order_confirmation', to: 'cart#order_confirmation', as: 'order_confirmation'
   end
-  root 'user#products'
+  root 'user#login'
   scope '/admin' do
     get '/',                to: 'products#index',           as: 'admin_index'
     get 'login',            to: 'admin#login',              as: 'admin_login'
