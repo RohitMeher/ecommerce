@@ -11,7 +11,7 @@ class CartController < ApplicationController
     if @order = @user.current_order
       @address = @order.address
     else
-      flash[:error] = "You don't have any order in the cart"
+      flash[:error] = "You don't have any products in the cart"
       redirect_to user_products_path
     end
   end
@@ -53,6 +53,6 @@ class CartController < ApplicationController
   end
 
   def order_confirmation
-    @order = current_user.orders.where(:status => Order::Status::ORDER_CONFIRMED).last
+    @order = current_user.last_confirmed_order
   end
 end

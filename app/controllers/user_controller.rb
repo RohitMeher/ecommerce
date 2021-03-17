@@ -34,6 +34,10 @@ class UserController < ApplicationController
     add_to_cart_params = params[:add_to_cart]
     quantity = add_to_cart_params[:quantity].to_i
     product = Product.find(add_to_cart_params[:product_id])
+    if quantity > product.quantity
+      flash[:error] = "We don't have this much of #{quantity} products in the Warehouse. we have only #{product.quantity} quantites for the #{product.code} in the warehouse."
+      redirect_to user_products_path and return
+    end
     if order = current_user.current_order
       if order_line = order.order_lines.where(item_code: product.code).first
         order_line.quantity = order_line.quantity + quantity
