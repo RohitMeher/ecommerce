@@ -1,2 +1,2 @@
 # ecommerce
-Dummy ecommerce portal
+ecommerce portal
